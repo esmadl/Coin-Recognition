@@ -1,7 +1,7 @@
 import cv2 as cv
 import numpy as np
 
-img = cv.imread("img-8.jpeg")
+img = cv.imread("images/img-8.jpeg")
 gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY)
     
 gray = cv.GaussianBlur(gray, (15, 15), 0)
