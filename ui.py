@@ -37,8 +37,9 @@ class MainWindow(QWidget):
         #Sonuçların yazılacağı yer
         self.result = QLabel(self)
         self.result.move(680, 20)
-        self.result.resize(200, 640)
+        self.result.resize(200, 560)
         self.result.setWordWrap(True)
+        self.result.setStyleSheet("background-color: #B0B0B0")
 
         # Pencere ayarları
         self.setGeometry(300, 300, 700, 700)
@@ -50,7 +51,7 @@ class MainWindow(QWidget):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
         if fname[0]:
             self.menu.setText(fname[0])
-
+#/Users/esmanur/Desktop/Coin-Recognition/images/img-4.jpeg
     def processImage(self):
         # Seçilen fotoğrafı işle ve göster
         image_path = self.menu.text()
@@ -61,8 +62,11 @@ class MainWindow(QWidget):
 
 
         # Taraman sonucunu label'e yükle
-        self.result.setText(f"Toplam değer: {round(float(total),3)} TL\n\n{coin_count[0]} adet 1 coin\n{coin_count[1]} adet 0.5 coin\n{coin_count[2]} adet 0.25 coin\n{coin_count[3]} adet 0.1 coin\n{coin_count[4]} adet 0.05 coin")
-        self.result.setStyleSheet("QLabel {color: black; font-size: 15pt; font-weight: bold; }")
+        self.result.setText(f"       Total value: {round(float(total),3)}TL\n\n         {coin_count[0]} piece 1 coin\n         {coin_count[1]} piece 0.5 coin\n         {coin_count[2]} piece 0.25 coin\n         {coin_count[3]} piece 0.1 coin\n         {coin_count[4]} piece 0.05 coin")
+
+        #self.result.setStyleSheet("QLabel {color: black; font-size: 15pt; font-weight: bold;}")
+        self.result.setStyleSheet("color: #282828; background-color: #B0B0B0; font-weight: 500")
+
         # İşlenen fotoğrafı label'e yükle
         height, width, channel = image.shape
         bytesPerLine = 3 * width
