@@ -11,11 +11,12 @@ class MainWindow(QWidget):
         self.initUI()
 
     def initUI(self):
-        # Açılır menü oluştur
+        # Create a drop -down menu
         self.menu = QLineEdit(self)
         self.menu.move(20, 20)
         self.menu.resize(250, 40)
-    
+
+        
         # Sürükle bırak yeri oluştur
         self.label = QLabel(self)
         self.label.setAcceptDrops(True)
@@ -23,7 +24,7 @@ class MainWindow(QWidget):
         self.label.resize(640, 480) 
         
 
-        # Buttonlar oluştur
+        # Creta buttons
         self.btn1 = QPushButton("Browse", self)
         self.btn1.move(300, 20)
         self.btn1.resize(120, 40)
@@ -34,26 +35,26 @@ class MainWindow(QWidget):
         self.btn2.resize(120, 40)
         self.btn2.clicked.connect(self.processImage)
 
-        #Sonuçların yazılacağı yer
+        #Place where the results will be written
         self.result = QLabel(self)
         self.result.move(680, 20)
         self.result.resize(200, 560)
         self.result.setWordWrap(True)
         self.result.setStyleSheet("background-color: #B0B0B0")
 
-        # Pencere ayarları
+        # Window setting
         self.setGeometry(300, 300, 700, 700)
         self.setWindowTitle('Coin recognition')
         self.show()
 
     def showDialog(self):
-        # Kullanıcıdan bir fotoğraf seç
+        # Choose a photo from the user
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
         if fname[0]:
             self.menu.setText(fname[0])
 #/Users/esmanur/Desktop/Coin-Recognition/images/img-4.jpeg
     def processImage(self):
-        # Seçilen fotoğrafı işle ve göster
+        # Run and show the selected photo
         image_path = self.menu.text()
         image = cv2.imread(image_path)
     
@@ -61,13 +62,11 @@ class MainWindow(QWidget):
         result, total,coin_count = imagefunc.scan_image(image)
 
 
-        # Taraman sonucunu label'e yükle
-        self.result.setText(f"       Total value: {round(float(total),3)}TL\n\n         {coin_count[0]} piece 1 coin\n         {coin_count[1]} piece 0.5 coin\n         {coin_count[2]} piece 0.25 coin\n         {coin_count[3]} piece 0.1 coin\n         {coin_count[4]} piece 0.05 coin")
-
-        #self.result.setStyleSheet("QLabel {color: black; font-size: 15pt; font-weight: bold;}")
+        # Upload the scanning result to Label
+        self.result.setText(f"       Total value: {round(float(total),3)}TL\n\n         {coin_count[0]} piece 1 coin\n         {coin_count[1]} piece 0.5 coin\n         {coin_count[2]} piece 0.25 coin\n         {coin_count[3]} piece 0.10 coin\n         {coin_count[4]} piece 0.05 coin")
         self.result.setStyleSheet("color: #282828; background-color: #B0B0B0; font-weight: 500")
 
-        # İşlenen fotoğrafı label'e yükle
+        # Upload the photo processed to Label
         height, width, channel = image.shape
         bytesPerLine = 3 * width
         qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888)
