@@ -81,9 +81,4 @@ def scan_image(img):
     return cv.putText(img, f'Total: {total}', (50, 50), cv.FONT_HERSHEY_SIMPLEX, 
                     1, (50, 50), 2, cv.LINE_AA),str(total),coin
 
-
-    #cv.imshow("detected circles", img) /Users/esmanur/Desktop/Coin-Recognition/images/img-3.jpeg
-    #cv.waitKey()
-
-
-#scan_image("images/img-6.jpeg")    
+  
