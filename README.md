@@ -18,14 +18,24 @@ of the coins.
     cd Coin-Recognition
 
 ## Usage
-  Run the ui.py
+  ### Run the ui.py
 
-  ![SS](/ss/img-2.png?raw=true "Optional Title")
+  ![SS](/ss/ss1.png?raw=false "Optional Title")
   
-  Click the "Browser" button and select the your photo
+  ### Click the "Browser" button and select the your photo
   
-  Click the "Run" button
-  ![SS](/ss/img-1.png?raw=true "Optional Title")
+  ![SS](/ss/ss2.png?raw=true "Optional Title")
+  
+  ### Click the "Open" button
+  ![SS](/ss/ss3.png?raw=true "Optional Title")
+  
+  ### Click the "Run" button.
+  ### You can see the output
+  ![SS](/ss/ss4.png?raw=true "Optional Title")
+   
+  ### If you want to save this photo, you can click the "Save" button and choose the file location you want to save
+  ![SS](/ss/ss5.png?raw=true "Optional Title")
+  
 
 
     
