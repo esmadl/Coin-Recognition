@@ -1,11 +1,11 @@
 import cv2 as cv
 import numpy as np
 
-#img = cv.imread("images/img-8.jpeg")
+img1 = "Coin-Recognition-Final/images/img-3.jpeg"
 
 def scan_image(img):
 
-    #img = cv.imread(img1)
+    img = cv.imread(img)
 
     gray = cv.cvtColor(img, cv.COLOR_BGR2GRAY) #This line of code converts the input image from the BGR color space to grayscale. 
                                                #This is done because the Hough Circle Transform works better on grayscale images, 
@@ -22,7 +22,7 @@ def scan_image(img):
     rows = gray.shape[0]
     circles = cv.HoughCircles(gray, cv.HOUGH_GRADIENT, 1, rows / 8,    
                                 param1=10, param2=30,
-                                minRadius=0, maxRadius=300) #The Hough Circle Transform is an algorithm that can detect circles in images by looking 
+                                minRadius=60, maxRadius=200) #The Hough Circle Transform is an algorithm that can detect circles in images by looking 
                                                             #for circular shapes in the image that meet certain criteria. 
                                                             #The Hough Circle Transform takes the following arguments:
 
@@ -55,30 +55,36 @@ def scan_image(img):
             The first cv.circle() function call is used to draw a small circle at the center of each detected circle, 
             and the second cv.circle() function call is used to draw a circle around each detected circle
             """
+            print(radius)
 
             if radius>100:
                 total+=1
                 coin[0]=+1
                 cv.putText(img,"Coin : 1",center,cv.FONT_HERSHEY_SIMPLEX, 1, (0, 2, 0),thickness=3)
-            elif radius>90 and radius<100:
+            elif radius>89 and radius<100:
                 coin[1]=+1
                 total+=0.5
                 cv.putText(img,"Coin : 0.5",center,cv.FONT_HERSHEY_SIMPLEX, 1, (0, 2, 0),thickness=3)
-            elif radius>78 and radius<90:
+            elif radius>80 and radius<=89:
                 coin[2]=+1
                 total+=0.25
                 cv.putText(img,"Coin : 0.25",center,cv.FONT_HERSHEY_SIMPLEX, 1, (0, 2, 0),thickness=3)
-            elif radius>74 and radius<=78:
+            elif radius>=74 and radius<=80:
                 coin[3]=+1
                 total+=0.10
                 cv.putText(img,"Coin : 0.10",center,cv.FONT_HERSHEY_SIMPLEX, 1, (0, 2, 0),thickness=3)
-            elif radius<=73:
+            elif radius<74:
                 coin[4]=+1
                 total+=0.05
                 cv.putText(img,"Coin : 0.05",center,cv.FONT_HERSHEY_SIMPLEX, 1, (0, 2, 0),thickness=3)
 
+    cv.imshow("detected circles", img)      
+    cv.waitKey(0)  
 
-    return cv.putText(img, f'Total: {total}', (50, 50), cv.FONT_HERSHEY_SIMPLEX, 
-                    1, (50, 50), 2, cv.LINE_AA),str(total),coin
 
-  
+    #return cv.putText(img, f'Total: {total}', (50, 50), cv.FONT_HERSHEY_SIMPLEX, 
+                    #1, (50, 50), 2, cv.LINE_AA),str(total),coin
+
+
+                
+scan_image(img1)
