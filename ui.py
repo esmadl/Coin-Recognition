@@ -35,6 +35,11 @@ class MainWindow(QWidget):
         self.btn2.resize(120, 40)
         self.btn2.clicked.connect(self.processImage)
 
+        self.btn3 = QPushButton("Save", self)
+        self.btn3.move(560, 20)
+        self.btn3.resize(120, 40)
+        self.btn3.clicked.connect(self.save_image)
+
         #Place where the results will be written
         self.result = QLabel(self)
         self.result.move(680, 20)
@@ -52,14 +57,14 @@ class MainWindow(QWidget):
         fname = QFileDialog.getOpenFileName(self, 'Open file', '/home')
         if fname[0]:
             self.menu.setText(fname[0])
-#/Users/esmanur/Desktop/Coin-Recognition/images/img-4.jpeg
+
     def processImage(self):
         # Run and show the selected photo
-        image_path = self.menu.text()
-        image = cv2.imread(image_path)
+        self.image_path = self.menu.text()
+        self.image = cv2.imread(self.image_path)
     
         #imagefunc.scan_image(image)
-        result, total,coin_count = imagefunc.scan_image(image)
+        result, total,coin_count = imagefunc.scan_image(self.image)
 
 
         # Upload the scanning result to Label
@@ -67,11 +72,18 @@ class MainWindow(QWidget):
         self.result.setStyleSheet("color: #282828; background-color: #B0B0B0; font-weight: 500")
 
         # Upload the photo processed to Label
-        height, width, channel = image.shape
+        height, width, channel = self.image.shape
         bytesPerLine = 3 * width
-        qImg = QImage(image.data, width, height, bytesPerLine, QImage.Format_RGB888)
+        qImg = QImage(self.image.data, width, height, bytesPerLine, QImage.Format_RGB888)
         pixmap = QPixmap.fromImage(qImg)
         self.label.setPixmap(pixmap.scaled(self.label.size(), Qt.KeepAspectRatio, Qt.SmoothTransformation))
+
+    def save_image(self):
+        options = QFileDialog.Options()
+        options |= QFileDialog.ReadOnly
+        fileName, _ = QFileDialog.getSaveFileName(self,"Save Image", "","Images (*.jpg *.png *.bmp);;All Files (*)", options=options)
+        if fileName:
+            cv2.imwrite(fileName, self.image)  
 
 
 if __name__ == '__main__':
